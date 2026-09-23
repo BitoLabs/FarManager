@@ -71,6 +71,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // External:
 #include "format.hpp"
+#include "platform.debug.hpp" //!!!
 
 //----------------------------------------------------------------------------
 
@@ -88,6 +89,7 @@ Panel::Panel(window_ptr Owner):
 
 Panel::~Panel()
 {
+	os::debug::print(far::format(L"-- ~Panel({})", (void*)this)); //!!!
 	EndDrag();
 }
 
@@ -856,6 +858,7 @@ int Panel::SetPluginCommand(int Command,int Param1,void* Param2)
 			if (CheckStructSize(dirInfo))
 			{
 				Result = ExecFolder(NullToEmpty(dirInfo->Name), dirInfo->PluginId, NullToEmpty(dirInfo->File), NullToEmpty(dirInfo->Param), false, true);
+				os::debug::print(far::format(L"-- FCTL_SETPANELDIRECTORY({})", (void*)this)); //!!!
 				// restore current directory to active panel path
 				if (!IsFocused())
 				{
@@ -994,6 +997,7 @@ bool Panel::ExecShortcutFolder(size_t const Index)
 
 bool Panel::ExecFolder(string_view const Folder, const UUID& PluginUuid, const string& strPluginFile, const string& strPluginData, bool CheckType, bool Silent)
 {
+	os::debug::print(far::format(L"-- ExecFolder({})", (void*)this)); //!!!
 	auto SrcPanel = shared_from_this();
 	const auto AnotherPanel = Parent()->GetAnotherPanel(this);
 
